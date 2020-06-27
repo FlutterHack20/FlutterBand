@@ -22,3 +22,17 @@ class HomeLoadedState extends HomeState {
 
 }
 
+class BroadcastingState extends HomeState {
+
+  @override
+  List<Object> get props => [];
+
+}
+
+class BroadcastSentState extends HomeState {
+  final String message;
+  @override
+  List<Object> get props => [message];
+  const BroadcastSentState([this.message]);
+}
+
