@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
 
 
@@ -49,8 +50,10 @@ _body(NavState state,BuildContext context){
 textTheme: ButtonTextTheme.primary,
       child:
         RaisedButton(
+            onPressed:   ()=>{
+            BlocProvider.of<HomeBloc>(context).add(StartBroadcastEvent())
 
-            onPressed:   ()=>{}, child: Text('Broadcast'))
+            }, child: Text('Broadcast'))
   )
 
   ],
