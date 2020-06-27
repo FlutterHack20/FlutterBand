@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "152281777617",
+    "firebase_url": "https://flutterband-1f46f.firebaseio.com",
+    "project_id": "flutterband-1f46f",
+    "storage_bucket": "flutterband-1f46f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152281777617:android:d35ef7214f52edaf79ccf0",
+        "android_client_info": {
+          "package_name": "app.flutterband"
+        }
+      },
+      "oauth_client": [
+        {Z
+          "client_id": "152281777617-13bcek1br2ho82fe2lglntpo3kbgomie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV0FMii01Spi53kp73pYdHVBeQDmda5zk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "152281777617-13bcek1br2ho82fe2lglntpo3kbgomie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
