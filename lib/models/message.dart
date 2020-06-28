@@ -5,6 +5,7 @@ class Message {
   final String message;
   final String lang;
   final int channel;
+  static const DEFAULT_CHANNEL=10;
   Message({this.time, this.message,this.lang,this.channel});
 
   static Message fromEntity(Map message) {
@@ -18,12 +19,12 @@ class Message {
     );
   }
 
-  Map toEntity() {
+  Map<String, Object>  toEntity() {
     return {
-      'time':time,
+      'time':time??new DateTime.now().toIso8601String(),
       'message':message,
       'lang':lang,
-      'channel':channel
+      'channel':channel??DEFAULT_CHANNEL
     };
   }
 }
