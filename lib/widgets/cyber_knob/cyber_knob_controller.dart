@@ -1,12 +1,10 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flare_flutter/flare.dart';
 import 'package:flare_dart/math/mat2d.dart';
 import 'package:flare_dart/math/vec2d.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flare_flutter/flare_controller.dart';
-import 'package:flare_flutter/flare_controls.dart';
 
 class CyberKnobController extends FlareController {
   ActorNode _control;
@@ -34,7 +32,7 @@ class CyberKnobController extends FlareController {
       ..animation = artboard.getAnimation("Untitled");
     _rotation = artboard.getAnimation("Untitled");
 
-    _rotation.apply(1.0, artboard, 1);
+    _rotation.apply(0, artboard, 1);
     // play("Untitled");
   }
 
