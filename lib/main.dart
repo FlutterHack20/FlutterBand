@@ -14,7 +14,6 @@ void main() {
     MultiBlocProvider(providers: [
       BlocProvider(create: (context) => EarwigBloc()),
       BlocProvider(create: (context) => HomeBloc()),
-
     ], child: MyApp()),
   );
 }
@@ -39,6 +38,7 @@ class MyApp extends StatelessWidget {
           // Notice that the counter didn't reset back to zero; the application
           // is not restarted.
           primarySwatch: Colors.blue,
+          brightness: Brightness.dark,
           // This makes the visual density adapt to the platform that you run
           // the app on. For desktop platforms, the controls will be smaller and
           // closer together (more dense) than on mobile platforms.
@@ -47,15 +47,12 @@ class MyApp extends StatelessWidget {
         home: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             return BlocProvider(
-                create: (context) => NavBloc(),
-                child:
-                MultiBlocProvider(providers: [
-                  BlocProvider(create: (context) => EarwigBloc()),
-                  BlocProvider(create: (context) => HomeBloc()),
-
-                ], child:      HomeScreen(name: 'home')),
-
-           );
+              create: (context) => NavBloc(),
+              child: MultiBlocProvider(providers: [
+                BlocProvider(create: (context) => EarwigBloc()),
+                BlocProvider(create: (context) => HomeBloc()),
+              ], child: HomeScreen(name: 'home')),
+            );
           },
         ));
   }

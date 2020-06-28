@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
 import 'package:flutterband/blocs/earwig/bloc.dart';
+import 'package:flutterband/widgets/cyber_knob/cyber_knob.dart';
 import 'package:flutterband/widgets/message_display_widget.dart';
 import 'package:flutterband/widgets/switch.dart';
 
@@ -25,12 +26,10 @@ class HomeScreen extends StatelessWidget {
     });
   }
 }
+
 String _latestMessage = 'awaiting messages';
 _body(NavState state, BuildContext context) {
-
-
-
-  latestMessage() =>_latestMessage;
+  latestMessage() => _latestMessage;
   if (state is InitialNavState || state is HomeNavState) {
     return MultiBlocListener(
         listeners: [
@@ -53,9 +52,7 @@ _body(NavState state, BuildContext context) {
         }, builder: (context, state) {
           return Column(
             children: <Widget>[
-              Padding(padding: EdgeInsets.all(20)),
               Image(image: AssetImage('assets/logo.png')),
-              Padding(padding: EdgeInsets.all(20)),
               Container(
                 width: 300,
                 height: 100,
@@ -63,6 +60,7 @@ _body(NavState state, BuildContext context) {
                   message: latestMessage(),
                 ),
               ),
+              CyberKnob(),
               ButtonTheme(
                   minWidth: 200.0,
                   height: 50.0,
