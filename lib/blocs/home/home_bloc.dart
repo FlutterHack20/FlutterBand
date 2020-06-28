@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:flutterband/blocs/earwig/bloc.dart';
 import 'package:flutterband/models/message.dart';
@@ -82,6 +84,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       String localVoice=localVoices[_random.nextInt(localVoices.length)];
       flutterTts.setVoice(localVoice);
     }
+
     flutterTts.speak(localizedMessageString);
     yield IncomingMessageState(localizedMessageString);
   }
