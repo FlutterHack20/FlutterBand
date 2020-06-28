@@ -19,7 +19,7 @@ class CyberKnobController extends FlareController {
   Vec2D _caretWorld = Vec2D();
 
   double _tick = 1.0;
-  double _ticker = -0.1;
+  double _ticker = 0.1;
 
   FlutterActorArtboard _artboard;
   FlareAnimationLayer _rotationAnimation;
@@ -43,10 +43,19 @@ class CyberKnobController extends FlareController {
   }
 
   set setTick(double tick) {
-    _tick += _ticker;
-    if (_tick <= 0 || _tick >= 1) {
-      _ticker = -_ticker;
+    var i = tick.floor() * _ticker / 100;
+
+    print(i);
+
+    if (i > -1 && i < 1) {
+      _tick += -i;
+
+      if (_tick > 1) _tick = 1;
+      if (_tick < 0) _tick = 0;
     }
+    // if (_tick <= 0 || _tick >= 1) {
+    //   _ticker = -_ticker;
+    // }
   }
 
   @override

@@ -52,9 +52,7 @@ _body(NavState state, BuildContext context) {
         }, builder: (context, state) {
           return Column(
             children: <Widget>[
-              Padding(padding: EdgeInsets.all(20)),
               Image(image: AssetImage('assets/logo.png')),
-              Padding(padding: EdgeInsets.all(20)),
               Container(
                 width: 300,
                 height: 100,

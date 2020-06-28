@@ -86,7 +86,6 @@ class _CyberKnobState extends State<CyberKnob> {
     bool movingClockwise = rotationalChange > 0;
     bool movingCounterClockwise = rotationalChange < 0;
 
-    print(rotationalChange);
     setState(() {
       _movement = rotationalChange;
       _cyberKnobController.setTick = _movement;
