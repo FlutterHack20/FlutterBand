@@ -1,12 +1,8 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_sound_lite/flutter_sound.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:flutterband/blocs/earwig/bloc.dart';
 import 'package:flutterband/models/message.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
