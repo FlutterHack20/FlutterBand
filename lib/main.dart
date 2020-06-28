@@ -9,10 +9,12 @@ import 'package:flutterband/home_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   BlocSupervisor.delegate = MyBlocDelegate();
+
   runApp(
     MultiBlocProvider(providers: [
-      BlocProvider(create: (context) => HomeBloc()),
       BlocProvider(create: (context) => EarwigBloc()),
+      BlocProvider(create: (context) => HomeBloc()),
+
     ], child: MyApp()),
   );
 }
@@ -46,7 +48,14 @@ class MyApp extends StatelessWidget {
           builder: (context, state) {
             return BlocProvider(
                 create: (context) => NavBloc(),
-                child: HomeScreen(name: 'home'));
+                child:
+                MultiBlocProvider(providers: [
+                  BlocProvider(create: (context) => EarwigBloc()),
+                  BlocProvider(create: (context) => HomeBloc()),
+
+                ], child:      HomeScreen(name: 'home')),
+
+           );
           },
         ));
   }

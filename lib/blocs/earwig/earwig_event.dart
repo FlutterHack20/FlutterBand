@@ -1,3 +1,4 @@
+import 'package:flutterband/models/message.dart';
 import 'package:meta/meta.dart';
 
 @immutable
@@ -8,4 +9,10 @@ class StartListeningEvent extends EarwigEvent {
   @override
   List<Object> get props => [channel];
   StartListeningEvent([this.channel]);
+}
+
+class PushMessageEvent extends EarwigEvent {
+  final Message message;
+  List<Object> get props => [message];
+  PushMessageEvent([this.message]);
 }

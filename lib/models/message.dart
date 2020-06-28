@@ -21,7 +21,7 @@ class Message {
 
   Map<String, Object>  toEntity() {
     return {
-      'time':time??new DateTime.now(),
+      'time':time !=null?time.millisecondsSinceEpoch:new DateTime.now().millisecondsSinceEpoch,
       'message':message,
       'lang':lang,
       'channel':channel??DEFAULT_CHANNEL

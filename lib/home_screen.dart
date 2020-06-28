@@ -25,6 +25,16 @@ class HomeScreen extends StatelessWidget {
 
 _body(NavState state, BuildContext context) {
   if (state is InitialNavState || state is HomeNavState) {
+    return  BlocConsumer<EarwigBloc, EarwigState>(
+  listener: (context, state) {
+  if(state is MessageReceivedEarwigState){
+    Locale myLocale = Localizations.localeOf(context);
+    print('YAY++++'+state.message.message+'++++YAY');
+    BlocProvider.of<HomeBloc>(context)
+        .add(StartIncomingEvent(state.message,myLocale.languageCode));
+  }
+  },
+  builder: (context, state) {
     return Column(
       children: <Widget>[
         Padding(padding: EdgeInsets.all(20)),
@@ -41,9 +51,9 @@ _body(NavState state, BuildContext context) {
             textTheme: ButtonTextTheme.primary,
             child: RaisedButton(
                 onPressed: () => {
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(StartBroadcastEvent())
-                    },
+                  BlocProvider.of<HomeBloc>(context)
+                      .add(StartBroadcastEvent())
+                },
                 child: Text('Broadcast'))),
         ButtonTheme(
             minWidth: 200.0,
@@ -56,11 +66,13 @@ _body(NavState state, BuildContext context) {
             textTheme: ButtonTextTheme.primary,
             child: RaisedButton(
                 onPressed: () => {
-                      BlocProvider.of<EarwigBloc>(context)
-                          .add(StartListeningEvent())
-                    },
+                  BlocProvider.of<EarwigBloc>(context)
+                      .add(StartListeningEvent())
+                },
                 child: Text('Listen'))),
       ],
     );
+  });
+
   }
 }

@@ -16,3 +16,8 @@ class MessageReceivedEarwigState extends EarwigState {
   List<Object> get props => [message];
   const MessageReceivedEarwigState([this.message]);
 }
+
+class EarwiggingState extends EarwigState {
+  @override
+  List<Object> get props => [];
+}
