@@ -5,6 +5,7 @@ import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
 import 'package:flutterband/blocs/earwig/bloc.dart';
 import 'package:flutterband/widgets/message_display_widget.dart';
+import 'package:flutterband/widgets/switch.dart';
 
 import 'blocs/earwig/earwig_event.dart';
 
@@ -13,7 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   int navIndex = 0;
   HomeScreen({Key key, @required this.name}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -27,77 +27,76 @@ class HomeScreen extends StatelessWidget {
 }
 
 _body(NavState state, BuildContext context) {
-  String latestMessage='awaiting messages';
+  String latestMessage = 'awaiting messages';
   if (state is InitialNavState || state is HomeNavState) {
-    return
-      MultiBlocListener(
+    return MultiBlocListener(
         listeners: [
           BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
-if(state is IncomingMessageState){
-  latestMessage=state.message;
-}
-            },
-          ),
-
-        ],
-        child:   BlocConsumer<EarwigBloc, EarwigState>(
-            listener: (context, state) {
-              if(state is MessageReceivedEarwigState){
-                Locale myLocale = Localizations.localeOf(context);
-                print('YAY++++'+state.message.message+'++++YAY');
-                BlocProvider.of<HomeBloc>(context)
-                    .add(StartIncomingEvent(state.message,myLocale.languageCode));
+              if (state is IncomingMessageState) {
+                latestMessage = state.message;
               }
             },
-            builder: (context, state) {
-              return Column(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.all(20)),
-                  Image(image: AssetImage('assets/logo.png')),
-                  Padding(padding: EdgeInsets.all(20)),
-                  Container(
-                    width: 300,
-                    height:100,
-                    child: MessageDisplayWidget(
-                      message: latestMessage,
-                    ),
-                  ),
-                  ButtonTheme(
-                      minWidth: 200.0,
-                      height: 50.0,
-                      buttonColor: Color.fromRGBO(67, 132, 165, 1),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(
-                              width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
-                      textTheme: ButtonTextTheme.primary,
-                      child: RaisedButton(
-                          onPressed: () => {
+          ),
+        ],
+        child:
+            BlocConsumer<EarwigBloc, EarwigState>(listener: (context, state) {
+          if (state is MessageReceivedEarwigState) {
+            Locale myLocale = Localizations.localeOf(context);
+            print('YAY++++' + state.message.message + '++++YAY');
+            BlocProvider.of<HomeBloc>(context)
+                .add(StartIncomingEvent(state.message, myLocale.languageCode));
+          }
+        }, builder: (context, state) {
+          return Column(
+            children: <Widget>[
+              Padding(padding: EdgeInsets.all(20)),
+              Image(image: AssetImage('assets/logo.png')),
+              Padding(padding: EdgeInsets.all(20)),
+              Container(
+                width: 300,
+                height: 100,
+                child: MessageDisplayWidget(
+                  message: latestMessage,
+                ),
+              ),
+              ButtonTheme(
+                  minWidth: 200.0,
+                  height: 50.0,
+                  buttonColor: Color.fromRGBO(67, 132, 165, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(
+                          width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
+                  textTheme: ButtonTextTheme.primary,
+                  child: RaisedButton(
+                      onPressed: () => {
                             BlocProvider.of<HomeBloc>(context)
                                 .add(StartBroadcastEvent())
                           },
-                          child: Text('Broadcast'))),
-                  ButtonTheme(
-                      minWidth: 200.0,
-                      height: 50.0,
-                      buttonColor: Color.fromRGBO(67, 132, 165, 1),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          side: BorderSide(
-                              width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
-                      textTheme: ButtonTextTheme.primary,
-                      child: RaisedButton(
-                          onPressed: () => {
+                      child: Text('Broadcast'))),
+              ButtonTheme(
+                  minWidth: 200.0,
+                  height: 50.0,
+                  buttonColor: Color.fromRGBO(67, 132, 165, 1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                      side: BorderSide(
+                          width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
+                  textTheme: ButtonTextTheme.primary,
+                  child: RaisedButton(
+                      onPressed: () => {
                             BlocProvider.of<EarwigBloc>(context)
                                 .add(StartListeningEvent())
                           },
-                          child: Text('Listen'))),
-                ],
-              );
-            })
-      );
-
-
+                      child: Text('Listen'))),
+              Container(
+                width: 100.0,
+                height: 100.0,
+                child: Switcher(),
+              )
+            ],
+          );
+        }));
   }
 }

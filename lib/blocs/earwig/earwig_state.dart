@@ -21,3 +21,8 @@ class EarwiggingState extends EarwigState {
   @override
   List<Object> get props => [];
 }
+
+class EardeafState extends EarwigState {
+  @override
+  List<Object> get props => [];
+}
