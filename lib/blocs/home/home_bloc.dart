@@ -5,9 +5,9 @@ import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 import './bloc.dart';
+import 'bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-
   StreamSubscription cameraBlocSubscription;
   String message;
   Firestore _firestore;
@@ -23,7 +23,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print('***SPOKEN WORD ERROR PROCESSING***');
         this.add(VoiceErrorEvent());
       }
-
     });
   }
 
@@ -41,48 +40,48 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeState get initialState => InitialHomeState();
 
   @override
-  Stream<HomeState> mapEventToState(HomeEvent event,) async* {
+  Stream<HomeState> mapEventToState(
+    HomeEvent event,
+  ) async* {
     if (event is StartBroadcastEvent) {
       yield* _mapStartBroadcastEventToState(event);
-    }else if(event is VoiceProcessedEvent){
-      _firestore=Firestore.instance;
-     await _firestore.collection('message').add({'message':this.message});
+    } else if (event is VoiceProcessedEvent) {
+      _firestore = Firestore.instance;
+      await _firestore.collection('message').add({'message': this.message});
       yield BroadcastSentState(message);
+    } else if (event is NewMessageEvent) {
+      //TODO : Text2Speech a new incoming message
     }
   }
 
-
-  Stream<HomeState> _mapStartBroadcastEventToState(
-      HomeEvent event) async* {
+  Stream<HomeState> _mapStartBroadcastEventToState(HomeEvent event) async* {
     print("***START LISTENING***");
     SpeechToText speech = SpeechToText();
     bool available = await speech.initialize(
         onStatus: statusListener, onError: errorListener);
     if (available) {
       speech.listen(onResult: resultListener);
-    }
-    else {
+    } else {
       print("The user has denied the use of speech recognition.");
     }
     yield BroadcastSentState();
   }
-  void resultListener(SpeechRecognitionResult result) {
 
-    if(result.finalResult==true){
+  void resultListener(SpeechRecognitionResult result) {
+    if (result.finalResult == true) {
       print("${result.recognizedWords} - ${result.finalResult}");
-      message=result.recognizedWords;
+      message = result.recognizedWords;
       changeController.add(new CapturedEvent('spokenword'));
     }
-
-
   }
+
   void errorListener(SpeechRecognitionError error) {
-    print('errorListener: '+error.toString());
+    print('errorListener: ' + error.toString());
     changeController.add(new CapturedEvent('notunderstand'));
   }
 
   void statusListener(String status) {
-    print('statusListener: '+status);
+    print('statusListener: ' + status);
   }
 }
 
