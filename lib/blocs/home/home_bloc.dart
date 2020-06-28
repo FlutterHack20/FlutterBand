@@ -13,15 +13,11 @@ import 'package:translator/translator.dart';
 import './bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-
   StreamSubscription earwigBlocSubscription;
   String voiceCapture;
   Firestore _firestore;
 
   HomeBloc() {
-
-
-    
     this.onChange.listen((e) {
       if ((e.eventData) == 'spokenword') {
         print('***SPOKEN WORD PROCESSING***');
@@ -32,7 +28,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         print('***SPOKEN WORD ERROR PROCESSING***');
         this.add(VoiceErrorEvent());
       }
-
     });
   }
 
@@ -50,73 +45,73 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeState get initialState => InitialHomeState();
 
   @override
-  Stream<HomeState> mapEventToState(HomeEvent event,) async* {
+  Stream<HomeState> mapEventToState(
+    HomeEvent event,
+  ) async* {
     if (event is StartBroadcastEvent) {
       yield* _mapStartBroadcastEventToState(event);
-    }else if(event is VoiceProcessedEvent){
-      _firestore=Firestore.instance;
+    } else if (event is VoiceProcessedEvent) {
+      _firestore = Firestore.instance;
       Message message = Message(message: this.voiceCapture);
       await _firestore.collection('message').add(message.toEntity());
       yield BroadcastSentState(message);
-    }else if(event is StartIncomingEvent){
-      yield* _mapStartIncomingEventToState(event.message,event.languageCode);
+    } else if (event is StartIncomingEvent) {
+      yield* _mapStartIncomingEventToState(event.message, event.languageCode);
     }
   }
 
   Stream<HomeState> _mapStartIncomingEventToState(
-      Message message,
-      String languageCode
-      )async* {
+      Message message, String languageCode) async* {
     print("***START INCOMING***");
     final translator = new GoogleTranslator();
 
-   String localizedMessageString=await translator.translate(message.message, to: languageCode);
+    String localizedMessageString =
+        await translator.translate(message.message, to: languageCode);
     print("***TRANSLATED TEXT***");
     print(languageCode);
-   print(localizedMessageString);
+    print(localizedMessageString);
     FlutterTts flutterTts = FlutterTts();
     List voices = await flutterTts.getVoices;
     final _random = new Random();
-    List localVoices = voices.where(( element) => element.toString().startsWith(languageCode+'-')).toList();
-    if(localVoices.length>0){
-      String localVoice=localVoices[_random.nextInt(localVoices.length)];
+    List localVoices = voices
+        .where((element) => element.toString().startsWith(languageCode + '-'))
+        .toList();
+    if (localVoices.length > 0) {
+      String localVoice = localVoices[_random.nextInt(localVoices.length)];
       flutterTts.setVoice(localVoice);
     }
     flutterTts.speak(localizedMessageString);
     yield IncomingMessageState(localizedMessageString);
   }
 
-  Stream<HomeState> _mapStartBroadcastEventToState(
-      HomeEvent event) async* {
+  Stream<HomeState> _mapStartBroadcastEventToState(HomeEvent event) async* {
     print("***START LISTENING***");
     SpeechToText speech = SpeechToText();
     bool available = await speech.initialize(
         onStatus: statusListener, onError: errorListener);
     if (available) {
-      speech.listen(onResult: resultListener);
-    }
-    else {
+      speech.listen(onResult: resultListener, cancelOnError: true);
+    } else {
       print("The user has denied the use of speech recognition.");
     }
     yield BroadcastSentState();
   }
-  void resultListener(SpeechRecognitionResult result) {
 
-    if(result.finalResult==true){
+  void resultListener(SpeechRecognitionResult result) {
+    if (result.finalResult == true) {
       print("${result.recognizedWords} - ${result.finalResult}");
-      voiceCapture=result.recognizedWords;
+      voiceCapture = result.recognizedWords;
       changeController.add(new CapturedEvent('spokenword'));
     }
-
-
   }
+
   void errorListener(SpeechRecognitionError error) {
-    print('errorListener: '+error.toString());
+    print('errorListener: ' + error.toString());
     changeController.add(new CapturedEvent('notunderstand'));
   }
 
   void statusListener(String status) {
-    print('statusListener: '+status);
+    print('statusListener: ' + status);
   }
 }
 
