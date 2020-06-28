@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import './bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutterband/models/message.dart';
 
 class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
   @override
@@ -22,7 +23,8 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     await for (var snapshot in _firestore.collection('message').snapshots()) {
       for (var message in snapshot.documents) {
         print(message.data);
-        yield MessageReceivedEarwigState(message.data);
+        Message newMessage = Message.fromEntity(message.data);
+        yield MessageReceivedEarwigState(newMessage);
       }
     }
     ;
