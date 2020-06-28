@@ -34,7 +34,7 @@ class BroadcastSentState extends HomeState {
 }
 
 class IncomingMessageState extends HomeState {
-  final Message message;
+  final String message;
   @override
   List<Object> get props => [message];
   const IncomingMessageState([this.message]);
