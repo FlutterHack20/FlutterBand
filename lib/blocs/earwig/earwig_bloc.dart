@@ -7,11 +7,6 @@ import 'package:flutterband/models/message.dart';
 
 class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
 
-
-  var changeController = new StreamController<CapturedEvent>();
-
-  Stream<CapturedEvent> get onChange => changeController.stream;
-
   @override
   EarwigState get initialState => InitialEarwigState();
  int startAtTimestamp= DateTime.now().millisecondsSinceEpoch;
