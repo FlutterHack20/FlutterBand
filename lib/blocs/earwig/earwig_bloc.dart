@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutterband/blocs/home/bloc.dart';
 import './bloc.dart';
@@ -16,12 +17,20 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     EarwigEvent event,
   ) async* {
     if (event is StartListeningEvent) {
+      AssetsAudioPlayer.newPlayer().open(
+        Audio("assets/turn_on.mp3"),
+        showNotification: true,
+      );
       yield* _mapListeningEventToState(event);
     } else if (event is PushMessageEvent) {
       print("***PushMessageEvent***");
       yield MessageReceivedEarwigState(event.message);
     } else if (event is StopListeningEvent) {
       print("***StopListeningEvent***");
+      AssetsAudioPlayer.newPlayer().open(
+        Audio("assets/turn_on.mp3"),
+        showNotification: true,
+      );
       listener.cancel();
       yield EardeafState();
     }
