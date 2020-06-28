@@ -48,6 +48,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     if (event is StartBroadcastEvent) {
+      AssetsAudioPlayer.newPlayer().open(
+        Audio("assets/turn_on.mp3"),
+        showNotification: true,
+      );
       yield* _mapStartBroadcastEventToState(event);
     } else if (event is VoiceProcessedEvent) {
       _firestore = Firestore.instance;
@@ -83,7 +87,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       Audio("assets/static_burst.mp3"),
       showNotification: true,
     );
-    flutterTts.speak(localizedMessageString);
+     flutterTts.speak(localizedMessageString);
     yield IncomingMessageState(localizedMessageString);
   }
 
