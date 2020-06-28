@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -80,7 +81,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       String localVoice=localVoices[_random.nextInt(localVoices.length)];
       flutterTts.setVoice(localVoice);
     }
-
+    AssetsAudioPlayer.newPlayer().open(
+      Audio("assets/static_burst.mp3"),
+      showNotification: true,
+    );
     flutterTts.speak(localizedMessageString);
     yield IncomingMessageState(localizedMessageString);
   }
