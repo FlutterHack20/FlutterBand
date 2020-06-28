@@ -25,12 +25,10 @@ class HomeScreen extends StatelessWidget {
     });
   }
 }
+
 String _latestMessage = 'awaiting messages';
 _body(NavState state, BuildContext context) {
-
-
-
-  latestMessage() =>_latestMessage;
+  latestMessage() => _latestMessage;
   if (state is InitialNavState || state is HomeNavState) {
     return MultiBlocListener(
         listeners: [
