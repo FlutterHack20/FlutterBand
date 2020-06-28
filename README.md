@@ -1,3 +1,5 @@
+[![Codemagic build status](https://api.codemagic.io/apps/5ef7d9cb7901d81e0cfcf8e5/5ef7d9cb7901d81e0cfcf8e4/status_badge.svg)](https://codemagic.io/apps/5ef7d9cb7901d81e0cfcf8e5/5ef7d9cb7901d81e0cfcf8e4/latest_build)
+
 # flutterband
 
 A new Flutter application.
