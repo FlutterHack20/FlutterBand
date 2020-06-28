@@ -4,7 +4,8 @@ class Message {
   final DateTime time;
   final String message;
   final String lang;
-  Message({this.time, this.message,this.lang});
+  final int channel;
+  Message({this.time, this.message,this.lang,this.channel});
 
   static Message fromEntity(Map message) {
     Timestamp timestamp=message['time'];
@@ -12,7 +13,8 @@ class Message {
     return Message(
         time: time,
         lang: message['lang'],
-        message: message['message']
+        message: message['message'],
+        channel: message['channel']
     );
   }
 
@@ -20,7 +22,8 @@ class Message {
     return {
       'time':time,
       'message':message,
-      'lang':lang
+      'lang':lang,
+      'channel':channel
     };
   }
 }

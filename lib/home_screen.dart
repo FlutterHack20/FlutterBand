@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
+import 'package:flutterband/models/message.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -49,11 +50,23 @@ _body(NavState state,BuildContext context){
   ,
 textTheme: ButtonTextTheme.primary,
       child:
-        RaisedButton(
-            onPressed:   ()=>{
-            BlocProvider.of<HomeBloc>(context).add(StartBroadcastEvent())
+          Column(
+  children: <Widget>[
+  RaisedButton(
+  onPressed:   ()=>{
+  BlocProvider.of<HomeBloc>(context).add(StartBroadcastEvent())
 
-            }, child: Text('Broadcast'))
+  }, child: Text('Broadcast')),
+  Padding(padding:EdgeInsets.only(top: 10),),
+  RaisedButton(
+  onPressed:   ()=>{
+  BlocProvider.of<HomeBloc>(context).add(StartIncomingEvent(Message(message: 'Hallo wie geht\'s dir?'),Localizations.localeOf(context).languageCode))
+
+  }, child: Text('Listen')),
+
+  ],
+  )
+
   )
 
   ],

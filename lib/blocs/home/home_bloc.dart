@@ -1,15 +1,20 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutterband/models/message.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
+import 'package:translator/translator.dart';
 import './bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   StreamSubscription cameraBlocSubscription;
-  String message;
+  String voiceCapture;
   Firestore _firestore;
 
   HomeBloc() {
@@ -46,11 +51,36 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       yield* _mapStartBroadcastEventToState(event);
     }else if(event is VoiceProcessedEvent){
       _firestore=Firestore.instance;
-     await _firestore.collection('message').add({'message':this.message});
+      Message message = Message(message: this.voiceCapture);
+      await _firestore.collection('message').add(message.toEntity());
       yield BroadcastSentState(message);
+    }else if(event is StartIncomingEvent){
+      yield* _mapStartIncomingEventToState(event.message,event.languageCode);
     }
   }
 
+  Stream<HomeState> _mapStartIncomingEventToState(
+      Message message,
+      String languageCode
+      )async* {
+    print("***START INCOMING***");
+    final translator = new GoogleTranslator();
+
+   String localizedMessageString=await translator.translate(message.message, to: languageCode);
+    print("***TRANSLATED TEXT***");
+    print(languageCode);
+   print(localizedMessageString);
+    FlutterTts flutterTts = FlutterTts();
+    List voices = await flutterTts.getVoices;
+    final _random = new Random();
+    List localVoices = voices.where(( element) => element.toString().startsWith(languageCode+'-')).toList();
+    if(localVoices.length>0){
+      String localVoice=localVoices[_random.nextInt(localVoices.length)];
+      flutterTts.setVoice(localVoice);
+    }
+    flutterTts.speak(localizedMessageString);
+    yield IncomingMessageState(Message(message: localizedMessageString));
+  }
 
   Stream<HomeState> _mapStartBroadcastEventToState(
       HomeEvent event) async* {
@@ -70,7 +100,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     if(result.finalResult==true){
       print("${result.recognizedWords} - ${result.finalResult}");
-      message=result.recognizedWords;
+      voiceCapture=result.recognizedWords;
       changeController.add(new CapturedEvent('spokenword'));
     }
 

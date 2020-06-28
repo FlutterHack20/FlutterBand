@@ -1,5 +1,6 @@
 
 import 'package:equatable/equatable.dart';
+import 'package:flutterband/models/message.dart';
 
 abstract class HomeState extends Equatable {
   const HomeState();
@@ -16,23 +17,26 @@ class HomeLoadingState extends HomeState {
 }
 
 class HomeLoadedState extends HomeState {
-
   @override
   List<Object> get props => [];
-
 }
 
 class BroadcastingState extends HomeState {
-
   @override
   List<Object> get props => [];
-
 }
 
 class BroadcastSentState extends HomeState {
-  final String message;
+  final Message message;
   @override
   List<Object> get props => [message];
   const BroadcastSentState([this.message]);
+}
+
+class IncomingMessageState extends HomeState {
+  final Message message;
+  @override
+  List<Object> get props => [message];
+  const IncomingMessageState([this.message]);
 }
 
