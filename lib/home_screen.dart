@@ -4,38 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
 import 'package:flutterband/models/message.dart';
-
+import 'package:flutterband/widgets/knobs/cyber_knob/cyber_knob.dart';
 
 class HomeScreen extends StatelessWidget {
   final String name;
-  int navIndex=0;
+  final int navIndex = 0;
   HomeScreen({Key key, @required this.name}) : super(key: key);
-
-
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-
-    return
-      BlocBuilder<NavBloc, NavState>(
-          builder: (_,state){
-            return Scaffold(
-              appBar: AppBar(title: Text('Flutterband v.1.0.beta')),
-extendBodyBehindAppBar: false,
-              body: _body(state,context)
-          );
-        }
-      );
-
-=======
     return BlocBuilder<NavBloc, NavState>(builder: (_, state) {
       return Scaffold(
           appBar: AppBar(title: Text('Flutterband v.1.0.beta')),
           extendBodyBehindAppBar: false,
           body: _body(state, context));
     });
->>>>>>> Added the knob again
   }
 }
 
@@ -79,9 +62,5 @@ _body(NavState state, BuildContext context) {
             ))
       ],
     );
-
-
-
   }
 }
-
