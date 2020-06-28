@@ -9,8 +9,8 @@ class Message {
   Message({this.time, this.message,this.lang,this.channel});
 
   static Message fromEntity(Map message) {
-    Timestamp timestamp=message['time'];
-    DateTime time=timestamp.toDate();
+
+    DateTime time= message['time']!=null?DateTime.now():DateTime.parse(message['time']);
     return Message(
         time: time,
         lang: message['lang'],
@@ -21,7 +21,7 @@ class Message {
 
   Map<String, Object>  toEntity() {
     return {
-      'time':time??new DateTime.now().toIso8601String(),
+      'time':time !=null?time.millisecondsSinceEpoch:new DateTime.now().millisecondsSinceEpoch,
       'message':message,
       'lang':lang,
       'channel':channel??DEFAULT_CHANNEL

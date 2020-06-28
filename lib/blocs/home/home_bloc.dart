@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import 'package:flutterband/blocs/earwig/bloc.dart';
 import 'package:flutterband/models/message.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
@@ -13,11 +14,14 @@ import './bloc.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
-  StreamSubscription cameraBlocSubscription;
+  StreamSubscription earwigBlocSubscription;
   String voiceCapture;
   Firestore _firestore;
 
   HomeBloc() {
+
+
+    
     this.onChange.listen((e) {
       if ((e.eventData) == 'spokenword') {
         print('***SPOKEN WORD PROCESSING***');
@@ -38,7 +42,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   @override
   Future<void> close() {
-    cameraBlocSubscription.cancel();
+    earwigBlocSubscription.cancel();
     return super.close();
   }
 
