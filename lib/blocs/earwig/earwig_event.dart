@@ -11,6 +11,11 @@ class StartListeningEvent extends EarwigEvent {
   StartListeningEvent([this.channel]);
 }
 
+class StopListeningEvent extends EarwigEvent {
+  @override
+  List<Object> get props => [];
+}
+
 class PushMessageEvent extends EarwigEvent {
   final Message message;
   List<Object> get props => [message];

@@ -21,7 +21,7 @@ class _SwitcherState extends State<Switcher> {
           switchEnabled
               ? BlocProvider.of<EarwigBloc>(context).add(StartListeningEvent())
               : BlocProvider.of<EarwigBloc>(context).add(
-                  StartListeningEvent()); //TODO: replace with StopListeningEvent
+                  StopListeningEvent()); //TODO: replace with StopListeningEvent
         });
       },
       child: new FlareActor("assets/flares/switch.flr",
