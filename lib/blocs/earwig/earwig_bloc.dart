@@ -13,17 +13,18 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     EarwigEvent event,
   ) async* {
     if (event is StartListeningEvent) {
-      yield* _mapListeningEventToState(event);
+      yield* _mapListeningEventToState(event, event.channel);
     }
   }
 
-  Stream<EarwigState> _mapListeningEventToState(EarwigEvent event) async* {
-    print("***CONNECTING TO DB***");
+  Stream<EarwigState> _mapListeningEventToState(
+      EarwigEvent event, String channel) async* {
+    print("***CONNECTING TO DB ON CHANNEL ${channel}***");
     Firestore _firestore = Firestore.instance;
-    await for (var snapshot in _firestore.collection('message').snapshots()) {
-      for (var message in snapshot.documents) {
-        print(message.data);
-        Message newMessage = Message.fromEntity(message.data);
+    await for (var snapshot in _firestore.collection(channel).snapshots()) {
+      for (var message in snapshot.documentChanges) {
+        print(message.document.data);
+        Message newMessage = Message.fromEntity(message.document.data);
         yield MessageReceivedEarwigState(newMessage);
       }
     }

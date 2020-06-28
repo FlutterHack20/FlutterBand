@@ -57,7 +57,7 @@ _body(NavState state, BuildContext context) {
             child: RaisedButton(
                 onPressed: () => {
                       BlocProvider.of<EarwigBloc>(context)
-                          .add(StartListeningEvent())
+                          .add(StartListeningEvent('message'))
                     },
                 child: Text('Listen'))),
       ],
