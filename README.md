@@ -25,6 +25,11 @@ We’ve also tried to improve upon some of the ethical pitfalls of yesteryear, g
 
 Flutterband is a fun interactive experience where you can have uncensored conversations with your friends or make new friends from anywhere in the world with no need for typing. 
 
+###### DOWNLOADS
+[APK](https://api.codemagic.io/artifacts/31c50b23-ddce-4866-a2e2-d2b3011d53b1/e2287dcf-d1cc-45b8-bcaf-f8aace7aef45/app-debug-universal.apk)
+[AAB](https://api.codemagic.io/artifacts/88c393ae-60d5-463f-8efc-515634a61673/f1979949-ce65-4566-a78a-d5bfb6cc91b2/app-debug.aab)
+
+
 ###### Technologies:
 - Flutter and BLoC state management library
 - Firebase for realtime database and communication
