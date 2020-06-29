@@ -5,11 +5,6 @@ import 'package:flutter/material.dart';
 
 import './cyber_knob_controller.dart';
 
-double _convertRange(oldMin, oldMax, newMin, newMax, oldValue) {
-  return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) +
-      newMin;
-}
-
 class CyberKnob extends StatefulWidget {
   // Define the parameters of this widget
   final double value;
@@ -25,8 +20,8 @@ class CyberKnob extends StatefulWidget {
   CyberKnob({
     Key key,
     this.value = 0.0,
-    this.min = 0.0,
-    this.max = 1.0,
+    this.min = 1.0,
+    this.max = 40.0,
     this.size = 200.0,
     this.onChanged,
   }) : super(key: key);
@@ -42,19 +37,7 @@ class _CyberKnobState extends State<CyberKnob> {
 
   CyberKnobController _cyberKnobController = CyberKnobController();
 
-  void _debugPan(dynamic d) {
-    if (d.delta.dx > 0)
-      print("Dragging in +X direction");
-    else
-      print("Dragging in -X direction");
-
-    if (d.delta.dy > 0)
-      print("Dragging in +Y direction");
-    else
-      print("Dragging in -Y direction");
-  }
-
-  double _panUpdate(DragUpdateDetails d) {
+  void _panUpdate(DragUpdateDetails d) {
     /// Pan location on the wheel
     bool onTop = d.localPosition.dy <= radius;
     bool onLeftSide = d.localPosition.dx <= radius;
@@ -83,8 +66,8 @@ class _CyberKnobState extends State<CyberKnob> {
     double rotationalChange =
         (verticalRotation + horizontalRotation) * d.delta.distance;
 
-    bool movingClockwise = rotationalChange > 0;
-    bool movingCounterClockwise = rotationalChange < 0;
+    // bool movingClockwise = rotationalChange > 0;
+    // bool movingCounterClockwise = rotationalChange < 0;
 
     setState(() {
       _movement = rotationalChange;
@@ -109,8 +92,9 @@ class _CyberKnobState extends State<CyberKnob> {
             _panUpdate(details);
           },
           onPanEnd: (DragEndDetails details) {
-            print('Ended drag $details');
-            // _cyberKnobController.setTick = _movement * 0.1;
+            print('Ended drag ${_cyberKnobController.tick}');
+
+            widget.onChanged(_cyberKnobController.tick * 25);
           },
           onTap: () {
             _cyberKnobController.setTick = 0.1;
