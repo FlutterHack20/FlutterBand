@@ -93,8 +93,8 @@ _body(NavState state, BuildContext context) {
                       _channel = channel.toInt();
                       BlocProvider.of<HomeBloc>(context)
                           .add(ChannelBrowseEvent(_channel));
-                      if (BlocProvider.of<EarwigBloc>(context).state ==
-                          EarwiggingState()) {
+                      if (BlocProvider.of<EarwigBloc>(context).state !=
+                          EardeafState()) {
                         BlocProvider.of<EarwigBloc>(context)
                             .add(StopListeningEvent());
                         BlocProvider.of<EarwigBloc>(context)
