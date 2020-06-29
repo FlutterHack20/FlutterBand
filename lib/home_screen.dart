@@ -22,10 +22,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NavBloc, NavState>(builder: (_, state) {
-      return Scaffold(
-          appBar: AppBar(title: Text('Flutterband v.1.0.beta')),
-          extendBodyBehindAppBar: false,
-          body: _body(state, context));
+      return SafeArea(
+          child: Scaffold(
+              extendBodyBehindAppBar: false, body: _body(state, context)));
     });
   }
 }
@@ -57,60 +56,68 @@ _body(NavState state, BuildContext context) {
                 .add(StartIncomingEvent(state.message, myLocale.languageCode));
           }
         }, builder: (context, state) {
-             var size=MediaQuery.of(context).size;
+          var size = MediaQuery.of(context).size;
           return Column(
             children: <Widget>[
-              Image(image: AssetImage('assets/logo.png'),width:size.width*0.5 ,),
-
+              Image(
+                image: AssetImage('assets/logo.png'),
+                width: size.width * 0.5,
+              ),
               Stack(
                 children: <Widget>[
-
                   Container(
-
-                    height:175,
-                    child:
-                    FlareActor('assets/flares/screen.flr',animation: 'Untitled',shouldClip: true,fit: BoxFit.scaleDown,),
+                    height: 175,
+                    child: FlareActor(
+                      'assets/flares/screen.flr',
+                      animation: 'Untitled',
+                      shouldClip: true,
+                      fit: BoxFit.scaleDown,
+                    ),
                   ),
-                  Container(padding: EdgeInsets.fromLTRB(50, 65, 50, 0),
-                    width: size.width,height:100,
-                    child:   MessageDisplayWidget(
+                  Container(
+                    padding: EdgeInsets.fromLTRB(50, 65, 50, 0),
+                    width: size.width,
+                    height: 100,
+                    child: MessageDisplayWidget(
                       message: latestMessage(),
-                    ) ,
+                    ),
                   )
                 ],
               ),
-
-
-              Row(
-                children: <Widget>[
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    child: Speak(currentChannel),
-                  ),
-                  CyberKnob(
-                    onChanged: (channel) {
-                      _channel = channel.toInt();
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(ChannelBrowseEvent(_channel));
-                      if (BlocProvider.of<EarwigBloc>(context).state !=
-                          EardeafState()) {
-                        BlocProvider.of<EarwigBloc>(context)
-                            .add(StopListeningEvent());
-                        BlocProvider.of<EarwigBloc>(context)
-                            .add(StartListeningEvent(currentChannel()));
-                      } else {
-                        //Nothing to do
-                      }
-                    },
-                  ),
-                  Container(
-                    width: 100.0,
-                    height: 100.0,
-                    child: Switcher(currentChannel),
-                  )
-                ],
-              ),
+              Expanded(
+                  child: Container(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 100.0,
+                            height: 100.0,
+                            child: Speak(currentChannel),
+                          ),
+                          CyberKnob(
+                            onChanged: (channel) {
+                              _channel = channel.toInt();
+                              BlocProvider.of<HomeBloc>(context)
+                                  .add(ChannelBrowseEvent(_channel));
+                              if (BlocProvider.of<EarwigBloc>(context).state !=
+                                  EardeafState()) {
+                                BlocProvider.of<EarwigBloc>(context)
+                                    .add(StopListeningEvent());
+                                BlocProvider.of<EarwigBloc>(context)
+                                    .add(StartListeningEvent(currentChannel()));
+                              } else {
+                                //Nothing to do
+                              }
+                            },
+                          ),
+                          Container(
+                            width: 90.0,
+                            height: 100.0,
+                            child: Switcher(currentChannel),
+                          )
+                        ],
+                      ))),
               ChannelDisplayWidget(),
             ],
           );
