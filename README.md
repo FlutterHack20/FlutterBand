@@ -25,7 +25,7 @@ We’ve also tried to improve upon some of the ethical pitfalls of yesteryear, g
 
 Flutterband is a fun interactive experience where you can have uncensored conversations with your friends or make new friends from anywhere in the world with no need for typing. 
 
-Technologies:
+###### Technologies:
 - Flutter and BLoC state management library
 - Firebase for realtime database and communication
 - Google APIs for Translation
@@ -34,4 +34,21 @@ Technologies:
 - Flare animations for all control widgets and animation manipulation, such as for the knob
 
 ![alt text](https://i.imgur.com/QiuOK2J.gif)
+
+###### TEAM
+
+*Mat Wright [Twitter](https://twitter.com/_MatWright)
+
+*Terry Rees
+
+*Arnaud [GitHub](https://github.com/arnaud-soulie/)
+
+*Rui Lima [GitHub](https://github.com/rapzo) [Twitter](https://twitter.com/rapzo)
+
+*Jason [Rive](https://rive.app/a/SquidLiquid/files/recent/all)
+
+###### VIDEO
+
+[![Alt text](https://img.youtube.com/vi/BG5URpaySxc/0.jpg)](https://youtu.be/BG5URpaySxc)
+
 
