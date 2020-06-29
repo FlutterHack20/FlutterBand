@@ -60,14 +60,13 @@ _body(NavState state, BuildContext context) {
           return Column(
             children: <Widget>[
               Container(
-                width:size.width * 0.5,
+                width: size.width * 0.5,
                 height: 100.0,
-                child:  FlareActor("assets/flares/Animated_logo_v02.flr",
+                child: FlareActor("assets/flares/Animated_logo_v02.flr",
                     alignment: Alignment.center,
                     fit: BoxFit.contain,
                     animation: 'Untitled'),
               ),
-
               Stack(
                 children: <Widget>[
                   Container(
@@ -80,7 +79,7 @@ _body(NavState state, BuildContext context) {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.fromLTRB(50, 65, 50, 0),
+                    padding: EdgeInsets.fromLTRB(60, 65, 60, 0),
                     width: size.width,
                     height: 100,
                     child: MessageDisplayWidget(
@@ -116,8 +115,6 @@ _body(NavState state, BuildContext context) {
                               }
                             },
                           ),
-
-
                           Container(
                             width: 90.0,
                             height: 100.0,
@@ -125,8 +122,6 @@ _body(NavState state, BuildContext context) {
                           )
                         ],
                       ))),
-
-
               ChannelDisplayWidget(),
             ],
           );
