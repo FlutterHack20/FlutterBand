@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutterband/blocs/home/bloc.dart';
 import 'package:flutterband/blocs/nav/bloc.dart';
 import 'package:flutterband/blocs/earwig/bloc.dart';
+import 'package:flutterband/widgets/channel_display_widget.dart';
 import 'package:flutterband/widgets/cyber_knob/cyber_knob.dart';
 import 'package:flutterband/widgets/message_display_widget.dart';
 import 'package:flutterband/widgets/speak.dart';
@@ -94,7 +95,8 @@ Row(
       child: Switcher(currentChannel),
     )
   ],
-)
+),
+              ChannelDisplayWidget(channel:_channel)
 
 
 
