@@ -5,16 +5,17 @@ import 'package:flutterband/blocs/earwig/earwig_bloc.dart';
 import 'package:flutterband/blocs/earwig/earwig_event.dart';
 
 class Switcher extends StatefulWidget {
-  Function currentChannel;
-  Switcher([this.currentChannel]);
+  // Function currentChannel;
+  final String channel;
+  Switcher(this.channel);
 
   @override
-  _SwitcherState createState() => _SwitcherState(currentChannel);
+  _SwitcherState createState() => _SwitcherState(channel);
 }
 
 class _SwitcherState extends State<Switcher> {
-  Function currentChannel;
-  _SwitcherState([this.currentChannel]);
+  final String channel;
+  _SwitcherState(this.channel);
 
   bool switchEnabled = false;
 
@@ -26,15 +27,14 @@ class _SwitcherState extends State<Switcher> {
           switchEnabled = !switchEnabled;
           switchEnabled
               ? BlocProvider.of<EarwigBloc>(context)
-                  .add(StartListeningEvent(currentChannel()))
-              : BlocProvider.of<EarwigBloc>(context).add(
-                  StopListeningEvent()); //TODO: replace with StopListeningEvent
+                  .add(StartListeningEvent(int.parse(channel)))
+              : BlocProvider.of<EarwigBloc>(context).add(StopListeningEvent());
         });
       },
       child: new FlareActor("assets/flares/switch_v03_red.flr",
           alignment: Alignment.center,
           fit: BoxFit.contain,
-          animation: switchEnabled ? "enable" : "disabled"),
+          animation: switchEnabled ? "enable" : "disable"),
     );
   }
 }
