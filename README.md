@@ -25,5 +25,13 @@ We’ve also tried to improve upon some of the ethical pitfalls of yesteryear, g
 
 Flutterband is a fun interactive experience where you can have uncensored conversations with your friends or make new friends from anywhere in the world with no need for typing. 
 
-![alt text](https://i.imgur.com/99kEK0E.png)
+Technologies:
+- Flutter and BLoC state management library
+- Firebase for realtime database and communication
+- Google APIs for Translation
+- Text-to-speech and speech-to-text transformations on the fly
+- Audio playback for translated messages and some sound effects as well
+- Flare animations for all control widgets and animation manipulation, such as for the knob
+
+![alt text](https://i.imgur.com/QiuOK2J.gif)
 
