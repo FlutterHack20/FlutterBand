@@ -32,7 +32,7 @@ class _SpeakState extends State<Speak> {
           BlocProvider.of<HomeBloc>(context).add(StartBroadcastEvent(currentChannel()));
         });
       },
-      child: new FlareActor("assets/flares/recordButton_wIcon.flr",
+      child: new FlareActor("assets/flares/MicButton.flr",
           alignment: Alignment.center,
           fit: BoxFit.contain,
           controller: controls,
