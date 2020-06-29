@@ -54,6 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         Audio("assets/broadcast.mp3"),
         showNotification: true,
       );
+      await new Future.delayed(const Duration(seconds : 1));
       yield* _mapStartBroadcastEventToState(event);
     } else if (event is VoiceProcessedEvent) {
       _firestore = Firestore.instance;

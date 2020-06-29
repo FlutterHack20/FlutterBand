@@ -17,10 +17,7 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     EarwigEvent event,
   ) async* {
     if (event is StartListeningEvent) {
-      AssetsAudioPlayer.newPlayer().open(
-        Audio("assets/turn_on.mp3"),
-        showNotification: true,
-      );
+
       yield* _mapListeningEventToState(event);
     } else if (event is PushMessageEvent) {
       print("***PushMessageEvent***");
@@ -59,7 +56,10 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
       });
       startAtTimestamp = DateTime.now().millisecondsSinceEpoch;
     });
-
+    AssetsAudioPlayer.newPlayer().open(
+      Audio("assets/turn_on.mp3"),
+      showNotification: true,
+    );
     yield EarwiggingState();
     //print(message.data);
     //Message newMessage = Message.fromEntity(message.data);

@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:flutterband/blocs/nav/bloc.dart';
 import 'package:flutterband/blocs/earwig/bloc.dart';
 import 'package:flutterband/widgets/cyber_knob/cyber_knob.dart';
 import 'package:flutterband/widgets/message_display_widget.dart';
+import 'package:flutterband/widgets/speak.dart';
 import 'package:flutterband/widgets/switch.dart';
 
 import 'blocs/earwig/earwig_event.dart';
@@ -54,37 +56,48 @@ _body(NavState state, BuildContext context) {
                 .add(StartIncomingEvent(state.message, myLocale.languageCode));
           }
         }, builder: (context, state) {
+             var size=MediaQuery.of(context).size;
           return Column(
             children: <Widget>[
-              Image(image: AssetImage('assets/logo.png')),
-              Container(
-                width: 300,
-                height: 100,
-                child: MessageDisplayWidget(
-                  message: latestMessage(),
-                ),
+              Image(image: AssetImage('assets/logo.png'),width:size.width*0.8 ,),
+
+              Stack(
+                children: <Widget>[
+
+                  Container(
+
+                    height:175,
+                    child:
+                    FlareActor('assets/flares/screen.flr',animation: 'Untitled',shouldClip: true,fit: BoxFit.scaleDown,),
+                  ),
+                  Container(padding: EdgeInsets.fromLTRB(50, 65, 50, 0),
+                    width: size.width,height:100,
+                    child:   MessageDisplayWidget(
+                      message: latestMessage(),
+                    ) ,
+                  )
+                ],
               ),
-              CyberKnob(),
-              ButtonTheme(
-                  minWidth: 200.0,
-                  height: 50.0,
-                  buttonColor: Color.fromRGBO(67, 132, 165, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(
-                          width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
-                  textTheme: ButtonTextTheme.primary,
-                  child: RaisedButton(
-                      onPressed: () => {
-                            BlocProvider.of<HomeBloc>(context)
-                                .add(StartBroadcastEvent(currentChannel()))
-                          },
-                      child: Text('Broadcast'))),
-              Container(
-                width: 100.0,
-                height: 100.0,
-                child: Switcher(currentChannel),
-              )
+
+Row(
+  children: <Widget>[
+
+    Container(
+      width: 100.0,
+      height: 100.0,
+      child: Speak(),
+    ),
+    CyberKnob(),
+    Container(
+      width: 100.0,
+      height: 100.0,
+      child: Switcher(),
+    )
+  ],
+)
+
+
+
             ],
           );
         }));
