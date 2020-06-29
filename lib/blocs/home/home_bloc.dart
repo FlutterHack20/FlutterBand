@@ -96,7 +96,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       showNotification: true,
     );
     flutterTts.speak(localizedMessageString);
-    yield IncomingMessageState(localizedMessageString);
+    yield IncomingMessageState(localizedMessageString,channel);
   }
 
   Stream<HomeState> _mapStartBroadcastEventToState( int channel) async* {

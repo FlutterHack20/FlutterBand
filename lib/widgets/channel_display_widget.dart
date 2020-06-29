@@ -21,17 +21,9 @@ class ChannelDisplayWidget extends StatelessWidget {
     return
       BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
-            if((state is ChannelBrowseState)){
-              if(state.channel!=null){
-                currentChannel=state.channel;
-              }
-
-            }else if(state is BroadcastSentState){
-              if(state.channel!=null){
-                currentChannel=state.channel;
-              }
+            if(state.channel!=null){
+              currentChannel=state.channel;
             }
-
           return   Expanded(
 
             child: Text(currentChannel.toString(),  style: TextStyle(color: Colors.lightBlueAccent,fontSize: 200,fontWeight: FontWeight.bold,fontFamily: "Digital"))
