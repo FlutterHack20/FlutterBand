@@ -24,3 +24,6 @@ We’re paying homage to CB radio with features like the channel selector knob a
 We’ve also tried to improve upon some of the ethical pitfalls of yesteryear, guarding personal safety with the use of random voices, rather than your own.  This greatly reduces the capacity for demographic stereotyping, and makes it far more difficult for any user with dark intentions to detect vulnerability.  No personal details are made available, enabling users to remain completely anonymous if they so wish.  And if you should find yourself on a channel with a weirdo, simply leave the channel, without consequence.
 
 Flutterband is a fun interactive experience where you can have uncensored conversations with your friends or make new friends from anywhere in the world with no need for typing. 
+
+![alt text](https://i.imgur.com/Jnx2b11.png)
+
