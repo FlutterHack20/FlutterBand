@@ -85,13 +85,13 @@ Row(
     Container(
       width: 100.0,
       height: 100.0,
-      child: Speak(),
+      child: Speak(currentChannel),
     ),
     CyberKnob(),
     Container(
       width: 100.0,
       height: 100.0,
-      child: Switcher(),
+      child: Switcher(currentChannel),
     )
   ],
 )
