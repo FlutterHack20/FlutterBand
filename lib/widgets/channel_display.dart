@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutterband/blocs/earwig/earwig_bloc.dart';
 import 'package:flutterband/blocs/earwig/earwig_state.dart';
 
@@ -25,7 +24,8 @@ class ChannelDisplay extends StatelessWidget {
             print('CHANNEL: $_channel');
           }
           return Container(
-            child: Text(_channel),
+            child: Text(_channel,  style: TextStyle(color: Colors.lightBlueAccent,fontSize: 200,fontWeight: FontWeight.bold,fontFamily: "Digital"))
+            ,
           );
         });
   }

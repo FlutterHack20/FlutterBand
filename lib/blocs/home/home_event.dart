@@ -30,8 +30,15 @@ class VoiceErrorEvent extends HomeEvent {
 class StartIncomingEvent extends HomeEvent {
   final Message message;
   final String languageCode;
-  final String channel;
+  final int channel;
   @override
   List<Object> get props => [message, languageCode, channel];
   const StartIncomingEvent([this.message, this.languageCode, this.channel]);
+}
+
+class ChannelBrowseEvent extends HomeEvent {
+  final int channel;
+  const ChannelBrowseEvent([this.channel]);
+  @override
+  List<Object> get props => [channel];
 }

@@ -74,7 +74,9 @@ class _CyberKnobState extends State<CyberKnob> {
       _cyberKnobController.setTick = _movement;
     });
   }
-
+  double reverseNumber(double num, int min, int max) {
+    return (max + min) - num.toDouble();
+  }
   @override
   Widget build(BuildContext context) {
     return ClipOval(
@@ -94,7 +96,7 @@ class _CyberKnobState extends State<CyberKnob> {
           onPanEnd: (DragEndDetails details) {
             print('Ended drag ${_cyberKnobController.tick}');
 
-            widget.onChanged(_cyberKnobController.tick * 25);
+            widget.onChanged(reverseNumber(_cyberKnobController.tick * 25,1,25));
           },
           onTap: () {
             _cyberKnobController.setTick = 0.1;

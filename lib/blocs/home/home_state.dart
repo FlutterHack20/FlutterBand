@@ -40,3 +40,12 @@ class IncomingMessageState extends HomeState {
   const IncomingMessageState([this.message]);
 }
 
+class ChannelBrowseState extends HomeState {
+  @override
+  final int channel;
+  const ChannelBrowseState([this.channel]);
+  @override
+  List<Object> get props => [channel];
+}
+
+

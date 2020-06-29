@@ -48,6 +48,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(
     HomeEvent event,
   ) async* {
+    if (event is ChannelBrowseEvent) {
+      yield ChannelBrowseState(event.channel);
+    }else
     if (event is StartBroadcastEvent) {
       this.channel = event.channel;
       AssetsAudioPlayer.newPlayer().open(

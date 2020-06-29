@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 String _latestMessage = 'awaiting messages';
-int _channel = 10;
+int _channel = 1;
 
 _body(NavState state, BuildContext context) {
   latestMessage() => _latestMessage;
@@ -60,7 +60,7 @@ _body(NavState state, BuildContext context) {
              var size=MediaQuery.of(context).size;
           return Column(
             children: <Widget>[
-              Image(image: AssetImage('assets/logo.png'),width:size.width*0.8 ,),
+              Image(image: AssetImage('assets/logo.png'),width:size.width*0.5 ,),
 
               Stack(
                 children: <Widget>[
@@ -91,6 +91,8 @@ _body(NavState state, BuildContext context) {
                   CyberKnob(
                     onChanged: (channel) {
                       _channel = channel.toInt();
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(ChannelBrowseEvent(_channel));
                       if (BlocProvider.of<EarwigBloc>(context).state ==
                           EarwiggingState()) {
                         BlocProvider.of<EarwigBloc>(context)
@@ -109,7 +111,7 @@ _body(NavState state, BuildContext context) {
                   )
                 ],
               ),
-              ChannelDisplayWidget(channel: _channel),
+              ChannelDisplayWidget(),
             ],
           );
         }));
