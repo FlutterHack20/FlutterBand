@@ -48,83 +48,96 @@ _body(NavState state, BuildContext context) {
           ),
         ],
         child:
-            BlocConsumer<EarwigBloc, EarwigState>(listener: (context, state) {
-          if (state is MessageReceivedEarwigState) {
-            Locale myLocale = Localizations.localeOf(context);
-            print('YAY++++' + state.message.message + '++++YAY');
-            BlocProvider.of<HomeBloc>(context)
-                .add(StartIncomingEvent(state.message, myLocale.languageCode));
-          }
-        }, builder: (context, state) {
-          var size = MediaQuery.of(context).size;
-          return Column(
-            children: <Widget>[
-              Container(
-                width: size.width * 0.5,
-                height: 100.0,
-                child: FlareActor("assets/flares/Animated_logo_v02.flr",
-                    alignment: Alignment.center,
-                    fit: BoxFit.contain,
-                    animation: 'Untitled'),
+        Scaffold(
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/texture.png"),
+                colorFilter: new ColorFilter.mode(Colors.blueAccent.withOpacity(0.9), BlendMode.dstATop),
+
+                fit: BoxFit.cover,
               ),
-              Stack(
+            ),
+            child:   BlocConsumer<EarwigBloc, EarwigState>(listener: (context, state) {
+              if (state is MessageReceivedEarwigState) {
+                Locale myLocale = Localizations.localeOf(context);
+                print('YAY++++' + state.message.message + '++++YAY');
+                BlocProvider.of<HomeBloc>(context)
+                    .add(StartIncomingEvent(state.message, myLocale.languageCode));
+              }
+            }, builder: (context, state) {
+              var size = MediaQuery.of(context).size;
+              return Column(
                 children: <Widget>[
                   Container(
-                    height: 175,
-                    child: FlareActor(
-                      'assets/flares/screen.flr',
-                      animation: 'Untitled',
-                      shouldClip: true,
-                      fit: BoxFit.scaleDown,
-                    ),
+                    width: size.width * 0.5,
+                    height: 100.0,
+                    child: FlareActor("assets/flares/Animated_logo_v02.flr",
+                        alignment: Alignment.center,
+                        fit: BoxFit.contain,
+                        animation: 'Untitled'),
                   ),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(60, 65, 60, 0),
-                    width: size.width,
-                    height: 100,
-                    child: MessageDisplayWidget(
-                      message: latestMessage(),
-                    ),
-                  )
+                  Stack(
+                    children: <Widget>[
+                      Container(
+                        height: 175,
+                        child: FlareActor(
+                          'assets/flares/screen.flr',
+                          animation: 'Untitled',
+                          shouldClip: true,
+                          fit: BoxFit.scaleDown,
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(60, 65, 60, 0),
+                        width: size.width,
+                        height: 100,
+                        child: MessageDisplayWidget(
+                          message: latestMessage(),
+                        ),
+                      )
+                    ],
+                  ),
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Container(
+                                width: 100.0,
+                                height: 100.0,
+                                child: Speak(currentChannel),
+                              ),
+                              CyberKnob(
+                                onChanged: (channel) {
+                                  _channel = channel.toInt();
+                                  BlocProvider.of<HomeBloc>(context)
+                                      .add(ChannelBrowseEvent(_channel));
+                                  if (BlocProvider.of<EarwigBloc>(context).state !=
+                                      EardeafState()) {
+                                    BlocProvider.of<EarwigBloc>(context)
+                                        .add(StopListeningEvent());
+                                    BlocProvider.of<EarwigBloc>(context)
+                                        .add(StartListeningEvent(currentChannel()));
+                                  } else {
+                                    //Nothing to do
+                                  }
+                                },
+                              ),
+                              Container(
+                                width: 90.0,
+                                height: 100.0,
+                                child: Switcher(_channel.toString()),
+                              )
+                            ],
+                          ))),
+                  ChannelDisplayWidget(),
                 ],
-              ),
-              Expanded(
-                  child: Container(
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: 100.0,
-                            height: 100.0,
-                            child: Speak(currentChannel),
-                          ),
-                          CyberKnob(
-                            onChanged: (channel) {
-                              _channel = channel.toInt();
-                              BlocProvider.of<HomeBloc>(context)
-                                  .add(ChannelBrowseEvent(_channel));
-                              if (BlocProvider.of<EarwigBloc>(context).state !=
-                                  EardeafState()) {
-                                BlocProvider.of<EarwigBloc>(context)
-                                    .add(StopListeningEvent());
-                                BlocProvider.of<EarwigBloc>(context)
-                                    .add(StartListeningEvent(currentChannel()));
-                              } else {
-                                //Nothing to do
-                              }
-                            },
-                          ),
-                          Container(
-                            width: 90.0,
-                            height: 100.0,
-                            child: Switcher(_channel.toString()),
-                          )
-                        ],
-                      ))),
-              ChannelDisplayWidget(),
-            ],
-          );
-        }));
+              );
+            })/* add child content here */,
+          ),
+        )
+           );
   }
 }

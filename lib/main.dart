@@ -51,8 +51,16 @@ class MyApp extends StatelessWidget {
               child: MultiBlocProvider(providers: [
                 BlocProvider(create: (context) => EarwigBloc()),
                 BlocProvider(create: (context) => HomeBloc()),
-              ], child: HomeScreen(name: 'home')),
-            );
+              ],
+
+
+                  child:
+                  HomeScreen(name: 'home')
+                 ));
+
+
+
+
           },
         ));
   }
