@@ -59,10 +59,15 @@ _body(NavState state, BuildContext context) {
           var size = MediaQuery.of(context).size;
           return Column(
             children: <Widget>[
-              Image(
-                image: AssetImage('assets/logo.png'),
-                width: size.width * 0.5,
+              Container(
+                width:size.width * 0.5,
+                height: 100.0,
+                child:  FlareActor("assets/flares/Animated_logo_v02.flr",
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                    animation: 'Untitled'),
               ),
+
               Stack(
                 children: <Widget>[
                   Container(
@@ -111,6 +116,8 @@ _body(NavState state, BuildContext context) {
                               }
                             },
                           ),
+
+
                           Container(
                             width: 90.0,
                             height: 100.0,
@@ -118,6 +125,8 @@ _body(NavState state, BuildContext context) {
                           )
                         ],
                       ))),
+
+
               ChannelDisplayWidget(),
             ],
           );
