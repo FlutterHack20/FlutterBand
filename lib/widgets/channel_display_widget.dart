@@ -21,7 +21,7 @@ class ChannelDisplayWidget extends StatelessWidget {
           child: Container(
               alignment: Alignment.center,
               child: Text(
-                  currentChannel.toString(),
+                  state.channel.toString(),
                   style: TextStyle(
                       color: Colors.lightBlueAccent,
                       fontSize: 200,
