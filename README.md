@@ -25,5 +25,5 @@ We’ve also tried to improve upon some of the ethical pitfalls of yesteryear, g
 
 Flutterband is a fun interactive experience where you can have uncensored conversations with your friends or make new friends from anywhere in the world with no need for typing. 
 
-![alt text](https://i.imgur.com/Jnx2b11.png)
+![alt text](https://i.imgur.com/99kEK0E.png)
 
