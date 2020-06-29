@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 abstract class EarwigEvent {}
 
 class StartListeningEvent extends EarwigEvent {
-  final String channel;
+  final int channel;
   @override
   List<Object> get props => [channel];
   StartListeningEvent([this.channel]);

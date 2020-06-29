@@ -28,8 +28,12 @@ class HomeScreen extends StatelessWidget {
 }
 
 String _latestMessage = 'awaiting messages';
+int _channel = 10;
+
 _body(NavState state, BuildContext context) {
   latestMessage() => _latestMessage;
+  currentChannel() => _channel;
+
   if (state is InitialNavState || state is HomeNavState) {
     return MultiBlocListener(
         listeners: [
@@ -73,28 +77,13 @@ _body(NavState state, BuildContext context) {
                   child: RaisedButton(
                       onPressed: () => {
                             BlocProvider.of<HomeBloc>(context)
-                                .add(StartBroadcastEvent())
+                                .add(StartBroadcastEvent(currentChannel()))
                           },
                       child: Text('Broadcast'))),
-              ButtonTheme(
-                  minWidth: 200.0,
-                  height: 50.0,
-                  buttonColor: Color.fromRGBO(67, 132, 165, 1),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(
-                          width: 1.00, color: Color.fromRGBO(45, 92, 110, 1))),
-                  textTheme: ButtonTextTheme.primary,
-                  child: RaisedButton(
-                      onPressed: () => {
-                            BlocProvider.of<EarwigBloc>(context)
-                                .add(StartListeningEvent())
-                          },
-                      child: Text('Listen'))),
               Container(
                 width: 100.0,
                 height: 100.0,
-                child: Switcher(),
+                child: Switcher(currentChannel),
               )
             ],
           );

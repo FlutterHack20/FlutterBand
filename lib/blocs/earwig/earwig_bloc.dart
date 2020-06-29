@@ -36,7 +36,8 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     }
   }
 
-  Stream<EarwigState> _mapListeningEventToState(EarwigEvent event) async* {
+  Stream<EarwigState> _mapListeningEventToState(
+      StartListeningEvent event) async* {
     print("***CONNECTING TO DB***");
     Firestore _firestore = Firestore.instance;
 
@@ -44,6 +45,7 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     listener = Firestore.instance
         .collection('message')
         .where('time', isGreaterThan: startAtTimestamp)
+        .where('channel', isEqualTo: event.channel)
         .snapshots()
         .listen((data) {
       print("***OVER LISTENER " + startAtTimestamp.toString() + "***");
