@@ -15,6 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   StreamSubscription earwigBlocSubscription;
   String voiceCapture;
   Firestore _firestore;
+  int channel;
 
   HomeBloc() {
     this.onChange.listen((e) {
@@ -48,15 +49,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     HomeEvent event,
   ) async* {
     if (event is StartBroadcastEvent) {
-      await AssetsAudioPlayer.newPlayer().open(
-        Audio("assets/turn_on.mp3"),
-        showNotification: false,
+      this.channel = event.channel;
+      AssetsAudioPlayer.newPlayer().open(
+        Audio("assets/broadcast.mp3"),
+        showNotification: true,
       );
       await new Future.delayed(const Duration(seconds : 1));
       yield* _mapStartBroadcastEventToState(event);
     } else if (event is VoiceProcessedEvent) {
       _firestore = Firestore.instance;
-      Message message = Message(message: this.voiceCapture);
+      Message message =
+          Message(message: this.voiceCapture, channel: this.channel);
       await _firestore.collection('message').add(message.toEntity());
       yield BroadcastSentState(message);
     } else if (event is StartIncomingEvent) {
@@ -88,7 +91,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       Audio("assets/static_burst.mp3"),
       showNotification: true,
     );
-     flutterTts.speak(localizedMessageString);
+    flutterTts.speak(localizedMessageString);
     yield IncomingMessageState(localizedMessageString);
   }
 

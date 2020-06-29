@@ -30,8 +30,12 @@ class HomeScreen extends StatelessWidget {
 }
 
 String _latestMessage = 'awaiting messages';
+int _channel = 10;
+
 _body(NavState state, BuildContext context) {
   latestMessage() => _latestMessage;
+  currentChannel() => _channel;
+
   if (state is InitialNavState || state is HomeNavState) {
     return MultiBlocListener(
         listeners: [
@@ -74,6 +78,7 @@ _body(NavState state, BuildContext context) {
                   )
                 ],
               ),
+
 Row(
   children: <Widget>[
 
@@ -90,7 +95,6 @@ Row(
     )
   ],
 )
-
 
 
 
