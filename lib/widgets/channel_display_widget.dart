@@ -7,7 +7,7 @@ import 'package:flutterband/blocs/home/bloc.dart';
 class ChannelDisplayWidget extends StatelessWidget {
 
 
-
+  int currentChannel=1;
   ChannelDisplayWidget({
 
     Key key,
@@ -17,12 +17,24 @@ class ChannelDisplayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+
     return
       BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
+            if((state is ChannelBrowseState)){
+              if(state.channel!=null){
+                currentChannel=state.channel;
+              }
+
+            }else if(state is BroadcastSentState){
+              if(state.channel!=null){
+                currentChannel=state.channel;
+              }
+            }
+
           return   Expanded(
 
-            child: Text(state is ChannelBrowseState?state.channel.toString():'1',  style: TextStyle(color: Colors.lightBlueAccent,fontSize: 200,fontWeight: FontWeight.bold,fontFamily: "Digital"))
+            child: Text(currentChannel.toString(),  style: TextStyle(color: Colors.lightBlueAccent,fontSize: 200,fontWeight: FontWeight.bold,fontFamily: "Digital"))
 
             );
           }

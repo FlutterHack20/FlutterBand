@@ -58,7 +58,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         showNotification: true,
       );
       await new Future.delayed(const Duration(seconds: 1));
-      yield* _mapStartBroadcastEventToState(event);
+      yield* _mapStartBroadcastEventToState(event.channel);
     } else if (event is VoiceProcessedEvent) {
       _firestore = Firestore.instance;
       Message message =
@@ -99,7 +99,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     yield IncomingMessageState(localizedMessageString);
   }
 
-  Stream<HomeState> _mapStartBroadcastEventToState(HomeEvent event) async* {
+  Stream<HomeState> _mapStartBroadcastEventToState( int channel) async* {
     print("***START LISTENING***");
     SpeechToText speech = SpeechToText();
     bool available = await speech.initialize(
@@ -109,7 +109,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } else {
       print("The user has denied the use of speech recognition.");
     }
-    yield BroadcastSentState();
+    yield BroadcastSentState(null,channel);
   }
 
   void resultListener(SpeechRecognitionResult result) {
