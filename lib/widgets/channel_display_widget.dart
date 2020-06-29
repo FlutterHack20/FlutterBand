@@ -19,7 +19,7 @@ class ChannelDisplayWidget extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.lightBlueAccent,
                       fontSize: 200,
-                      fontWeight: FontWeight.bold,
+                      // fontWeight: FontWeight.bold,
                       fontFamily: "Digital"))));
     });
   }
