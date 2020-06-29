@@ -118,7 +118,7 @@ _body(NavState state, BuildContext context) {
                           Container(
                             width: 90.0,
                             height: 100.0,
-                            child: Switcher(currentChannel),
+                            child: Switcher(_channel.toString()),
                           )
                         ],
                       ))),
