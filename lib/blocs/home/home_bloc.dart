@@ -49,7 +49,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async* {
     if (event is StartBroadcastEvent) {
       AssetsAudioPlayer.newPlayer().open(
-        Audio("assets/broadcast.mp3"),
+        Audio("assets/turn_on.mp3"),
         showNotification: true,
       );
       yield* _mapStartBroadcastEventToState(event);

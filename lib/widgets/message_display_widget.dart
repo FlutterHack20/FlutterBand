@@ -16,7 +16,7 @@ class MessageDisplayWidget extends StatelessWidget {
 
     return Marquee(
       text: message,
-      style: TextStyle(color: Colors.greenAccent,fontSize: 50,fontWeight: FontWeight.bold,fontFamily: "Digital"),
+      style: TextStyle(color: Colors.white,fontSize: 50,fontWeight: FontWeight.bold,fontFamily: "Digital"),
       scrollAxis: Axis.horizontal,
       crossAxisAlignment: CrossAxisAlignment.start,
       blankSpace: 20.0,
