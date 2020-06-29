@@ -80,26 +80,36 @@ _body(NavState state, BuildContext context) {
                 ],
               ),
 
-Row(
-  children: <Widget>[
 
-    Container(
-      width: 100.0,
-      height: 100.0,
-      child: Speak(currentChannel),
-    ),
-    CyberKnob(),
-    Container(
-      width: 100.0,
-      height: 100.0,
-      child: Switcher(currentChannel),
-    )
-  ],
-),
-              ChannelDisplayWidget(channel:_channel)
-
-
-
+              Row(
+                children: <Widget>[
+                  Container(
+                    width: 100.0,
+                    height: 100.0,
+                    child: Speak(currentChannel),
+                  ),
+                  CyberKnob(
+                    onChanged: (channel) {
+                      _channel = channel.toInt();
+                      if (BlocProvider.of<EarwigBloc>(context).state ==
+                          EarwiggingState()) {
+                        BlocProvider.of<EarwigBloc>(context)
+                            .add(StopListeningEvent());
+                        BlocProvider.of<EarwigBloc>(context)
+                            .add(StartListeningEvent(currentChannel()));
+                      } else {
+                        //Nothing to do
+                      }
+                    },
+                  ),
+                  Container(
+                    width: 100.0,
+                    height: 100.0,
+                    child: Switcher(currentChannel),
+                  )
+                ],
+              ),
+              ChannelDisplayWidget(channel: _channel),
             ],
           );
         }));
