@@ -31,10 +31,10 @@ class _SwitcherState extends State<Switcher> {
                   StopListeningEvent()); //TODO: replace with StopListeningEvent
         });
       },
-      child: new FlareActor("assets/flares/switch.flr",
+      child: new FlareActor("assets/flares/switch_v03_red.flr",
           alignment: Alignment.center,
           fit: BoxFit.contain,
-          animation: switchEnabled ? "enable" : "disable"),
+          animation: switchEnabled ? "enable" : "disabled"),
     );
   }
 }
