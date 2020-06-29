@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutterband/models/message.dart';
 
 abstract class EarwigState extends Equatable {
+
   const EarwigState();
 }
 

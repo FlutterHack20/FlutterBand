@@ -38,7 +38,7 @@ class EarwigBloc extends Bloc<EarwigEvent, EarwigState> {
     print("***CONNECTING TO DB***");
     Firestore _firestore = Firestore.instance;
 
-    print(startAtTimestamp);
+    print("***CHANNEL   "+event.channel.toString()+"   CHANNEL***");
     listener = Firestore.instance
         .collection('message')
         .where('time', isGreaterThan: startAtTimestamp)
