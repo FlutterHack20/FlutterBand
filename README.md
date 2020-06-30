@@ -54,6 +54,6 @@ Flutterband is a fun interactive experience where you can have uncensored conver
 
 ###### VIDEO
 
-[![Alt text](https://img.youtube.com/vi/BG5URpaySxc/0.jpg)](https://youtu.be/BG5URpaySxc)
+[![Alt text](https://img.youtube.com/vi/BG5URpaySxc/0.jpg)](https://www.youtube.com/watch?v=GAk9beyNCW4)
 
 
